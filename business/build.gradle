@@ -1,0 +1,5 @@
+dependencies {
+  api project(':domain')
+
+  api('javax.inject:javax.inject:1')
+}

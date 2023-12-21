@@ -1,0 +1,12 @@
+dependencies {
+  api project(':adapter:rest-api:api-dto')
+  api project(':domain')
+  api project(':business')
+
+  api("org.springframework.boot:spring-boot-starter-thymeleaf:$thymeleafVersion")
+  api("org.springframework.boot:spring-boot-starter-web")
+  api("io.swagger.core.v3:swagger-annotations:$swaggerVersion")
+  api("org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}")
+
+}
+

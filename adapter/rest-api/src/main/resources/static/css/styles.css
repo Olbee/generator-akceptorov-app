@@ -1,0 +1,1077 @@
+/*--------------------------------------------------------------------------------------------------------------------*/
+*, html {
+    font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #404040;
+    outline: 0;
+    font-size: 18px;
+}
+
+body {
+    position: relative;
+    background-color: #FFFFFF;
+    color: #000000;
+    height: 100%;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+.img-container {
+    cursor: grab;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    border: 2px solid #DDDDDD;
+    border-radius: 10px;
+}
+
+.img-container img {
+    display: block;
+    border-radius: 0.25em;
+    margin: 5vh auto;
+    padding: 0;
+    outline: 0;
+    overflow: hidden;
+}
+
+.img-container .table-wrapper{
+    display: block;
+    border-radius: 0.25em;
+    margin: 5vh auto;
+    padding: 0;
+    outline: 0;
+}
+
+#DFA-Graph-text, #Transition-Table-text {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10vh;
+    margin-bottom: 1vh;
+}
+
+#Transition-Diagram-text {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5vh;
+    margin-bottom: 1vh;
+}
+
+img {
+    display: block;
+    border-radius: 0.25em;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: calc(100vw - 6rem);
+    max-height: calc(100vh - 6rem);
+    padding: 0;
+    outline: 0;
+    overflow: hidden;
+}
+
+.table-wrapper tbody {
+    display: block;
+    border-radius: 0.25em;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    outline: 0;
+}
+
+.generatedImagesWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+.loader {
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    -webkit-animation: loader-1 3s linear infinite;
+    animation: loader-2-1 3s linear infinite;
+}
+
+
+
+.loader, ::after, ::before {
+    -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+@-webkit-keyframes loader-1 {
+    0%   { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes loader-1 {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader span {
+    display: block;
+    position: absolute;
+    height: 32px;
+    width: 32px;
+    clip: rect(16px, 32px, 32px, 0);
+    -webkit-animation: loader-2 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+    animation: loader-2 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+}
+
+@-webkit-keyframes loader-2 {
+    0%   { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes loader-2 {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader span::before {
+    display: block;
+    position: absolute;
+    top: 0; left: 0;
+    bottom: 0; right: 0;
+    margin: auto;
+    height: 32px;
+    width: 32px;
+    border: 3px solid transparent;
+    border-top: 3px solid #2B3649FF;
+    border-radius: 50%;
+    -webkit-animation: loader-3 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+    animation: loader-3 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+}
+
+@-webkit-keyframes loader-3 {
+    0%   { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes loader-3 {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader span::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 32px;
+    width: 32px;
+    border: 3px solid #2B3649FF;
+    border-radius: 50%;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+.error-wrapper {
+    height: 5vh;
+    padding: 1vh 2vw;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    background-color: #af0000;
+    color: white;
+    transition: opacity .5s ease-in-out;
+}
+
+.error {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    height: 5vh;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+#error-in-bottom {
+    margin-top: 2rem;
+}
+
+.close-error:hover {
+    color: #8f8f8f;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-row: 1;
+    grid-column: 1 / -1;
+    background-color: #DDDDDD;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    min-height: 50px;
+    height: 7vh;
+    max-height: 7vh;
+    width: 100%;
+    border-bottom: 2px solid #DDDDDD;
+    z-index: 9999;
+}
+
+.main-header-text > span {
+    margin-left: 7.5vw;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.main-header-text {
+    margin: 0 auto;
+}
+
+@media only screen and (min-width: 1px) and (max-width: 350px) {
+    .main-header-text > span {
+        font-size: 14px;
+        margin-left: 1vw;
+    }
+
+    .header {
+        max-height: 12vh;
+    }
+
+    .main-header-text {
+        text-align: center;
+    }
+
+    *, html {
+        font-size: 14px;
+    }
+
+    .input-container input:focus ~ label,
+    .input-container input:valid ~ label{
+        font-size: 14px;
+    }
+
+    .input-container label{
+        font-size: 14px;
+    }
+
+    .input-container input{
+        font-size: 14px;
+    }
+
+    .switch > span {
+        font-size: 8px;
+    }
+
+    input.check-toggle-round-flat + label:after {
+        width: 30%;
+    }
+
+    input.check-toggle-round-flat + label {
+        height: 20px;
+        width: 30px;
+    }
+
+    label.tog {
+        max-width: 40px;
+        max-height: 15px;
+        line-height: 15px;
+    }
+
+    label.tog::before,
+    label.tog::after {
+        line-height: 16px !important;
+        font-size: 8px;
+    }
+}
+
+@media only screen and (min-width: 351px) and (max-width: 450px) {
+    .main-header-text > span {
+        font-size: 15px;
+        margin-left: 1vw;
+    }
+
+    .header {
+        max-height: 12vh;
+    }
+
+    .main-header-text {
+        text-align: center;
+    }
+
+    *, html {
+        font-size: 14px;
+    }
+
+    .input-container input:focus ~ label,
+    .input-container input:valid ~ label{
+        font-size: 14px;
+    }
+
+    .input-container label{
+        font-size: 14px;
+    }
+
+    .input-container input{
+        font-size: 14px;
+    }
+
+    .switch > span {
+        font-size: 8px;
+    }
+
+    input.check-toggle-round-flat + label:after {
+        width: 30%;
+    }
+
+    input.check-toggle-round-flat + label {
+        height: 20px;
+        width: 30px;
+    }
+
+    label.tog {
+        max-width: 40px;
+        max-height: 15px;
+        line-height: 15px;
+    }
+
+    label.tog::before,
+    label.tog::after {
+        line-height: 16px !important;
+        font-size: 8px;
+    }
+}
+
+@media only screen and (min-width: 451px) and (max-width: 500px) {
+    .main-header-text > span {
+        font-size: 15px;
+        margin-left: 1.5vw;
+    }
+
+    *, html {
+        font-size: 14px;
+    }
+
+    .input-container input:focus ~ label,
+    .input-container input:valid ~ label{
+        font-size: 14px;
+    }
+
+    .input-container label{
+        font-size: 14px;
+    }
+
+    .input-container input{
+        font-size: 14px;
+    }
+
+    .switch > span {
+        font-size: 8px;
+    }
+
+    input.check-toggle-round-flat + label:after {
+        width: 30%;
+    }
+
+    input.check-toggle-round-flat + label {
+        height: 30px;
+        width: 40px;
+    }
+
+    label.tog {
+        max-width: 60px;
+        max-height: 20px;
+        line-height: 20px;
+    }
+
+    label.tog::before,
+    label.tog::after {
+        line-height: 21px !important;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 600px) {
+    .main-header-text > span {
+        font-size: 16px;
+        margin-left: 3vw;
+    }
+
+    *, html {
+        font-size: 14px;
+    }
+
+    .input-container input:focus ~ label,
+    .input-container input:valid ~ label{
+        font-size: 14px;
+    }
+
+    .input-container label{
+        font-size: 14px;
+    }
+
+    .input-container input{
+        font-size: 14px;
+    }
+
+    .switch > span {
+        font-size: 10px;
+    }
+
+    input.check-toggle-round-flat + label:after {
+        width: 30%;
+    }
+
+    input.check-toggle-round-flat + label {
+        height: 30px;
+        width: 40px;
+    }
+
+    label.tog {
+        max-width: 60px;
+        max-height: 20px;
+        line-height: 20px;
+    }
+
+    label.tog::before,
+    label.tog::after {
+        line-height: 21px !important;
+        font-size: 12px;
+    }
+}
+
+
+@media only screen and (min-width: 601px) and (max-width: 800px) {
+    .main-header-text > span {
+        font-size: 20px;
+        margin-left: 4vw;
+    }
+
+    *, html {
+        font-size: 16px;
+    }
+
+    .input-container input:focus ~ label,
+    .input-container input:valid ~ label{
+        font-size: 16px;
+    }
+
+    .input-container label{
+        font-size: 16px;
+    }
+
+    .input-container input{
+        font-size: 16px;
+    }
+
+    .switch > span {
+        font-size: 10px;
+    }
+
+    input.check-toggle-round-flat + label:after {
+        width: 30%;
+    }
+
+    input.check-toggle-round-flat + label {
+        height: 30px;
+        width: 40px;
+    }
+
+    label.tog {
+        max-width: 60px;
+        max-height: 20px;
+        line-height: 20px;
+    }
+
+    label.tog::before,
+    label.tog::after {
+        line-height: 21px !important;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 801px) and (max-width: 1000px) {
+    .main-header-text > span {
+        font-size: 24px;
+        margin-left: 5vw;
+    }
+
+    .switch > span {
+        font-size: 12px;
+    }
+
+    label.tog {
+        max-width: 65px;
+        max-height: 25px;
+    }
+}
+
+@media only screen and (min-width: 1001px) and (max-width: 1200px) {
+    .main-header-text > span {
+        font-size: 28px;
+        margin-left: 6vw;
+    }
+
+    .switch > span {
+        font-size: 12px;
+    }
+
+    label.tog {
+        max-width: 70px;
+        max-height: 25px;
+    }
+}
+
+
+@media only screen and (min-width: 1001px) and (max-width: 1100px) {
+    .main-header-text > span {
+        font-size: 28px;
+        margin-left: 6vw;
+    }
+
+    .switch > span {
+        font-size: 12px;
+    }
+
+    label.tog {
+        max-width: 70px;
+        max-height: 25px;
+    }
+}
+
+@media only screen and (max-width: 1800px) {
+    .parent-parent-wrapper #text-box-1 {
+        display: flow-root;
+        height: unset;
+        width: unset;
+    }
+
+    .parent-parent-wrapper #text-box-2 {
+        display: flow-root;
+        margin-top: 1rem;
+        margin-left: unset;
+        height: unset;
+        width: unset;
+    }
+
+    .parent-parent-wrapper #text-box-3,
+    .parent-parent-wrapper #text-box-4 {
+        margin-top: 1rem;
+        margin-left: unset;
+        height: unset;
+        width: unset;
+    }
+
+    .parent-wrapper .boxes-wrapper,
+    .parent-wrapper .checkboxes-wrapper,
+    .parent-parent-wrapper .parent-wrapper {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 1801px) {
+    .main-header-text > span {
+        font-size: 32px;
+        margin-left: 7.5vw;
+    }
+
+    .switch > span {
+        font-size: 12px;
+    }
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+main {
+    background-color: #FFFFFF;
+    padding: 2rem 2rem 2rem 2rem;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+table {
+    border-collapse: collapse;
+    display: flex;
+}
+
+th, td {
+    text-align: center;
+    border: 1px solid #000000;
+    padding: 8px;
+}
+
+th:last-child,
+td:last-child {
+    border-right: none;
+}
+
+th:first-child {
+    border-left: none;
+}
+
+th {
+    border-top: none;
+}
+
+tbody tr td {
+    border-bottom: none;
+    border-left: none;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+.input-container{
+    position: relative;
+}
+
+.input-container label{
+    color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+    font-size: 18px;
+}
+
+.input-container input{
+    border: 0;
+    border-bottom: 3px solid #2B3649FF;
+    background: transparent;
+    width: 100%;
+    padding: 4vh 0 5px 0;
+    font-size: 18px;
+}
+
+.input-container input:focus{
+    outline: none;
+}
+
+.field input:-webkit-autofill,
+.input-container input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+    box-shadow: 0 0 0 1000px #ffffff inset;
+}
+
+.input-container input:focus + label {
+    color: rgba(0, 0, 0);
+    outline: none;
+}
+
+.input-container input:focus ~ label,
+.input-container input:valid ~ label{
+    bottom: 45px;
+    font-size: 18px; /*1em*/
+}
+
+.field {
+    margin-top: 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.725em;
+    text-align: center;
+    width: 100%;
+    margin: 3.5vh 0;
+    position: relative;
+}
+
+.downloadImageButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#downloadDFAGraphButton,
+#downloadTransitionTableButton,
+#downloadTransitionGraphButton {
+    margin-right: auto;
+    margin-left: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    margin-top: 1vh;
+}
+
+#inputRegexSymbolsToUseLine {
+    margin-bottom: 5vh;
+}
+
+.button {
+    min-width: 110px;
+    min-height: 50px;
+    height: 5vh;
+    border: none;
+    padding: 1vh 2vw;
+    font-weight: bold;
+    background-color: #2B3649FF;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+    text-align: center;
+    transition: background-color 0.167s, color 0.167s;
+    user-select: none;
+    vertical-align: middle;
+}
+
+.button:hover {
+    background-color: #3c5993;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+.icon {
+    position: relative;
+    height: 30px;
+    color: #FFFFFF;
+    background-color: #FFFFFF;
+    width: 30px;
+}
+
+.gear-wrapper {
+    position: absolute;
+}
+
+.icon:hover .cog,
+.cog:hover {
+    background-color: #3c5993;
+    cursor: pointer;
+}
+
+.icon:hover .cog,
+.cog:hover,
+.icon:hover .wheel,
+.cog:hover ~ .wheel {
+    border-color: #3c5993;
+    cursor: pointer;
+}
+
+.wheel {
+    position: absolute;
+    left: 0;
+    color: #FFFFFF;
+    background-color: #FFFFFF;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: solid 6px #2B3649FF;
+}
+
+.cog {
+    position: absolute;
+    width: 5px;
+    height: 30px;
+    border-radius: 2px;
+    background: #2B3649FF;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.cog:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+.cog:nth-child(3) {
+    transform: rotate(90deg)
+}
+
+.cog:nth-child(4) {
+    transform: rotate(135deg)
+}
+
+#generate-random-regex-button,
+#generate-graphs-button,
+#generate-and-download-codes-button {
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+.parent-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.75em;
+}
+
+hr {
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+    border: 0;
+    border-top: 1px solid #2B3649FF;
+}
+
+#text-box-1{
+    height: 200px;
+    width: 525px;
+}
+
+#text-box-2 {
+    margin-left: 1rem;
+    width: 220px;
+    height: 200px;
+}
+
+#text-box-3, #text-box-4 {
+    margin-left: 1rem;
+    width: 285px;
+    height: 200px;
+}
+
+.boxes-wrapper {
+    display: flex;
+}
+
+.checkboxes-wrapper {
+    display: flex;
+}
+
+.generate-box {
+    min-width: 150px;
+    max-width: 15vw;
+}
+
+#automatonHasBeenGenerated {
+    margin-top: 11vh;
+}
+
+#generate-and-download-codes-button {
+    margin-top: 0.5em;
+}
+
+.generate-box > form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 1.5em;
+}
+
+.box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 25vh;
+    margin: auto;
+    padding: 3vh;
+    background-color: #EEEEEE;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    border-radius: 0.25em;
+}
+
+.box-content-wrapper {
+    display: block;
+}
+
+.box-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.box-content > div {
+    position: relative;
+    line-height: 1.75em;
+    left: 2em;
+}
+
+.box-content > div::before {
+    content: "●";
+    font-size: 0.4em;
+    position: absolute;
+    left: -2em;
+}
+
+label.tog {
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    position: relative;
+    display: block;
+    width: 80px;
+    height: 25px;
+    border: 5px solid #2B3649FF;
+    border-radius: 10px;
+    background: #2B3649FF;
+    cursor: pointer;
+    margin-right: 2rem;
+    color: black;
+    font-size: 14px;
+}
+
+label.tog::before,
+label.tog::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    line-height: 25px;
+    color: black;
+}
+
+label.tog:hover {
+    background: #3c5993;
+    border: 5px solid #3c5993;
+}
+
+label.tog::before {
+    left: 0;
+    display: block;
+    border-radius: 10px;
+    background: #DDDDDD;
+    content: attr(data-sk);
+    transition: all 0.3s ease;
+}
+
+label.tog::after {
+    left: 50%;
+    color: #DDDDDD;
+    content: attr(data-en);
+    transition: all 0.3s ease;
+}
+
+input.tog {
+    display: none;
+}
+
+input.tog:checked + label.tog::before {
+    position: relative;
+    left: 50%;
+    border-radius: 10px;
+    background: #EEEEEE;
+    content: attr(data-en);
+}
+
+input.tog:checked + label.tog::after {
+    left: 0;
+    color: #DDDDDD;
+    content: attr(data-sk);
+}
+
+label.tog::before:hover {
+    background: #3c5993;
+    border: 5px solid #3c5993;
+}
+
+input.tog:checked + label.tog {
+    border: 5px solid #2B3649FF;
+    background: #2B3649FF;
+}
+
+input.tog:checked + label.tog:hover {
+    background: #3c5993;
+    border: 5px solid #3c5993;
+}
+
+
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+    .checkbox-wrapper input[type=checkbox] {
+        --active: #2B3649FF;
+        --active-inner: #FFFFFF;
+        --focus: 2px rgb(60, 89, 147, .3);
+        --border: #2B3649FF;
+        --border-hover: #4568b2;
+        --background: #EEEEEE;
+        --disabled: #F6F8FF;
+        --disabled-inner: #E1E6F9;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        height: 21px;
+        outline: none;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        margin: 0;
+        cursor: pointer;
+        border: 2px solid var(--bc, var(--border));
+        background: var(--b, var(--background));
+        transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+    }
+    .checkbox-wrapper input[type=checkbox]:after {
+        content: "";
+        display: block;
+        left: 0;
+        top: 0;
+        position: absolute;
+        transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+    }
+    .checkbox-wrapper input[type=checkbox]:checked {
+        --b: var(--active);
+        --bc: var(--active);
+        --d-o: .3s;
+        --d-t: .6s;
+        --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+    }
+    .checkbox-wrapper input[type=checkbox]:disabled {
+        --b: var(--disabled);
+        cursor: not-allowed;
+        opacity: 0.9;
+    }
+    .checkbox-wrapper input[type=checkbox]:disabled:checked {
+        --b: var(--disabled-inner);
+        --bc: var(--border);
+    }
+    .checkbox-wrapper input[type=checkbox]:disabled + label {
+        cursor: not-allowed;
+    }
+    .checkbox-wrapper input[type=checkbox]:hover:not(:checked):not(:disabled) {
+        --bc: var(--border-hover);
+    }
+    .checkbox-wrapper input[type=checkbox]:focus {
+        box-shadow: 0 0 0 var(--focus);
+    }
+    .checkbox-wrapper input[type=checkbox]:not(.switch) {
+        width: 21px;
+    }
+    .checkbox-wrapper input[type=checkbox]:not(.switch):after {
+        opacity: var(--o, 0);
+    }
+    .checkbox-wrapper input[type=checkbox]:not(.switch):checked {
+        --o: 1;
+    }
+    .checkbox-wrapper input[type=checkbox] + label {
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
+        margin-left: 1vw;
+    }
+
+    .checkbox-wrapper input[type=checkbox]:not(.switch) {
+        border-radius: 7px;
+    }
+    .checkbox-wrapper input[type=checkbox]:not(.switch):after {
+        width: 5px;
+        height: 9px;
+        border: 2px solid var(--active-inner);
+        border-top: 0;
+        border-left: 0;
+        left: 7px;
+        top: 4px;
+        transform: rotate(var(--r, 20deg));
+    }
+    .checkbox-wrapper input[type=checkbox]:not(.switch):checked {
+        --r: 43deg;
+    }
+}
+
+.checkbox-wrapper * {
+    display: flex;
+    float: left;
+    box-sizing: inherit;
+}
+.checkbox-wrapper *:before,
+.checkbox-wrapper *:after {
+    box-sizing: inherit;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/

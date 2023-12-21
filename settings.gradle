@@ -1,0 +1,14 @@
+rootProject.name = 'generator-akceptorov-app'
+
+include 'adapter'
+include 'adapter:generation'
+include 'adapter:rest-api'
+include 'adapter:rest-api:api-dto'
+include 'adapter:transformation'
+
+include 'app'
+
+include 'business'
+
+include 'domain'
+include 'domain:shared'

@@ -1,0 +1,21 @@
+application.version: "0.1.0"
+application.rest-api.version: "0.1.0"
+
+server.port: 8080
+
+spring.application.name: generator-akceptorov-app
+spring.profiles.active: local
+
+springdoc:
+  default-consumes-media-type: "application/json"
+  default-produces-media-type: "application/json"
+  api-docs:
+    enabled: true
+    path: "/internal/v3/docs"
+    groups.enabled: true
+    resolve-schema-properties: true
+  swagger-ui:
+    path: "/internal/swagger-ui.html"
+    display-request-duration: true
+    groups-order: desc
+    operations-sorter: method

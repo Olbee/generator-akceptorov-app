@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    api project(':business')
+    api project(':adapter:rest-api')
+    api project(':adapter:transformation')
+    api project(':adapter:generation')
+    api project(':domain')
+
+    api("com.zaxxer:HikariCP")
+}
+
+bootJar {
+    duplicatesStrategy = DuplicatesStrategy.WARN
+    layered {
+        enabled = true
+    }
+}
+
+bootRun {
+    jvmArgs = ["--illegal-access=warn", "--add-opens=java.base/java.util=ALL-UNNAMED", "--add-opens=java.base/java.util.concurrent=ALL-UNNAMED",
+               "--add-opens=java.base/java.time=ALL-UNNAMED"
+    ]
+}
+
+springBoot {
+    buildInfo {
+        properties {
+            version = getAppVersion()
+            artifact = rootProject.name
+            name = rootProject.name
+        }
+    }
+}
+
+String getAppVersion() {
+    return System.getenv("VERSION")
+}

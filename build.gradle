@@ -1,0 +1,65 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
+    ext {
+        springBootVersion = '3.0.5'
+        springDocVersion = '2.1.0'
+        swaggerVersion = '2.2.7'
+        immutablesVersion = '2.9.3'
+        jupiterVersion = '5.8.2'
+        automatonVersion = '1.12-1'
+        graphvizVersion = '0.14.2'
+        thymeleafVersion = '3.2.0'
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+    }
+}
+
+group 'generatorakceptorov'
+version '1.0-SNAPSHOT'
+
+subprojects {
+
+    apply plugin: 'java-library'
+    apply plugin: 'idea'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://packages.confluent.io/maven/' }
+    }
+
+    configurations {
+        javaAgentDownload
+    }
+
+    dependencies {
+        implementation platform(SpringBootPlugin.BOM_COORDINATES)
+        api("dk.brics:automaton:$automatonVersion")
+        api('javax.inject:javax.inject:1')
+        api("guru.nidi:graphviz-java:$graphvizVersion")
+        api("org.springframework:spring-context")
+        annotationProcessor("org.immutables:value:$immutablesVersion")
+        compileOnly("org.immutables:value-annotations:$immutablesVersion")
+    }
+
+    jar {
+        archiveBaseName = "${rootProject.getName()}-${project.getName()}"
+    }
+
+    clean {
+        delete "out"
+    }
+}
+

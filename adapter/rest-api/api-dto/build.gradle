@@ -1,0 +1,9 @@
+dependencies {
+  api project(':domain:shared')
+
+  api("com.fasterxml.jackson.core:jackson-databind")
+  api("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
+
+  implementation("org.hibernate.validator:hibernate-validator")
+  implementation("io.swagger.core.v3:swagger-annotations:${swaggerVersion}")
+}
