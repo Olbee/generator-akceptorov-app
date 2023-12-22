@@ -1,4 +1,4 @@
-package generatorakceptorov.regex.service;
+package generatorakceptorov.regex;
 
 import generatorakceptorov.domain.regex.command.RandomRegexCommand;
 import generatorakceptorov.domain.regex.data.ImmutableRegexData;

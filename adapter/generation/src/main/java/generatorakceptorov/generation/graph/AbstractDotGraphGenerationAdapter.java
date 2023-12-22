@@ -5,10 +5,11 @@ import generatorakceptorov.domain.automaton.entity.AutomatonEntity;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AbstractDotGraphGenerationAdapter {
+//TODO: rework
+public abstract class AbstractDotGraphGenerationAdapter {
 
     protected Map<String, String> getUniqueTransition(AutomatonEntity entity) {
-        Map<String, String> uniqueTransitions = new HashMap<>();
+        final Map<String, String> uniqueTransitions = new HashMap<>();
         for (int i = 0; i < entity.transitions().length; i++) {
             for (int j = 0; j < entity.transitions()[i].length; j++) {
                 if (entity.transitions()[i][j] != null) {

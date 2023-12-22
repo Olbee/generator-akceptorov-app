@@ -1,4 +1,4 @@
-package generatorakceptorov.graph.service;
+package generatorakceptorov.graph;
 
 import generatorakceptorov.automaton.port.outbound.DFATransformationPort;
 import generatorakceptorov.automaton.port.outbound.NFATransformationPort;
@@ -37,7 +37,8 @@ public class GenerateGraphsService implements GenerateGraphsUseCase {
             DFATransformationPort DFATransformationPort,
             TransitionDotGraphGenerationPort transitionDotGraphGenerationPort,
             DFADotGraphGenerationPort dfaDotGraphGenerationPort,
-            DotGraphTransformationPort dotGraphTransformationPort, DFATransitionTableGenerationPort dfaTransitionTableGenerationPort) {
+            DotGraphTransformationPort dotGraphTransformationPort,
+            DFATransitionTableGenerationPort dfaTransitionTableGenerationPort) {
         this.stringTransformationPort = stringTransformationPort;
         this.regexTransformationPort = regexTransformationPort;
         this.NFATransformationPort = NFATransformationPort;
@@ -48,21 +49,24 @@ public class GenerateGraphsService implements GenerateGraphsUseCase {
         this.dfaTransitionTableGenerationPort = dfaTransitionTableGenerationPort;
     }
 
+    //TODO: refactoring (separate functionality for automaton and graphs)
     @Override
-    //TODO: refactoring. Separate functionality for automaton and graphs
     public AutomatonData execute(String input, RegexNotationTypeCommand command) {
         final DFAEntity dfa =
                 NFATransformationPort.transformToDFA(
                     regexTransformationPort.transformToNFA(
                         stringTransformationPort.transformToRegex(input, command.notationType())));
+
         final MinDFAEntity minDFA = DFATransformationPort.transformToMinDFA(dfa);
 
         final byte[] transitionPNGGraph =
                 dotGraphTransformationPort.convertToPNG(
                         transitionDotGraphGenerationPort.generateFromDFA(dfa));
+
         final byte[] dfaPNGGraph =
                 dotGraphTransformationPort.convertToPNG(
                     dfaDotGraphGenerationPort.generateFromMinDFA(minDFA));
+
         final String transitionTable =
                 dfaTransitionTableGenerationPort.generateFromMinDFA(minDFA);
 

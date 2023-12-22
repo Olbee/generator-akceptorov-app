@@ -6,10 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+//TODO: rework
 @Component
-public class TransitionDotGraphGenerationAdapter
-        extends AbstractDotGraphGenerationAdapter
-        implements TransitionDotGraphGenerationPort {
+public class TransitionDotGraphGenerationAdapter extends AbstractDotGraphGenerationAdapter implements TransitionDotGraphGenerationPort {
 
     @Override
     public String generateFromDFA(DFAEntity dfaEntity) {
@@ -23,7 +22,6 @@ public class TransitionDotGraphGenerationAdapter
 
     private String addInitializedStates(DFAEntity entity) {
         final StringBuilder sb = new StringBuilder();
-
         sb.append("    ").append("start").append(" [shape=none, label=\"start\"]\n");
         sb.append("    ").append("accept").append(" [shape=none, label=\"accept\"]\n\n");
 

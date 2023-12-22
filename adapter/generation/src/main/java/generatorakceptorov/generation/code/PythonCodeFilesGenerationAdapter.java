@@ -6,17 +6,20 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
+//TODO: rework
 @Component
-public class PythonCodeGenerationAdapter implements PythonCodeGenerationPort {
+public class PythonCodeFilesGenerationAdapter extends AbstractCodeFilesGenerationAdapter implements PythonCodeGenerationPort {
 
-    public static final String MAIN_PYTHON_FILE = "PythonCodeFiles/main.py";
-    public static final String REGEX_ACCEPTOR_PYTHON_FILE = "PythonCodeFiles/regex_acceptor.py";
+    public static final String FOLDER_NAME = "PythonCodeFiles/";
+
+    public static final String MAIN_FILE_NAME = FOLDER_NAME + "main.py";
+    public static final String REGEX_ACCEPTOR_FILE_NAME = FOLDER_NAME + "regex_acceptor.py";
 
     @Override
     public HashMap<String, String> generateFromMinDFA(MinDFAEntity minDFA) {
         HashMap<String, String> generatedFiles = new HashMap<>();
-        generatedFiles.put(MAIN_PYTHON_FILE, generateMainFileContent());
-        generatedFiles.put(REGEX_ACCEPTOR_PYTHON_FILE, generateRegexAcceptorFileContent(minDFA));
+        generatedFiles.put(MAIN_FILE_NAME, generateMainFileContent());
+        generatedFiles.put(REGEX_ACCEPTOR_FILE_NAME, generateRegexAcceptorFileContent(minDFA));
 
         return generatedFiles;
     }
@@ -24,43 +27,39 @@ public class PythonCodeGenerationAdapter implements PythonCodeGenerationPort {
     private String generateMainFileContent() {
         return
             """
-                    from regex_acceptor import RegexAcceptor
+                from regex_acceptor import RegexAcceptor
 
-                    MAX_LEN = 64
+                MAX_LEN = 64
 
-                    if __name__ == "__main__":
-                    \tstr_ = ""
-                    \twhile str_ != "?":
-                    \t\tprint(f"\\nPre ukončenie programu zadajte symbol \\\"?\\\".")
-                    \t\tstr_ = input("Zadajte vstupny retazec: ")
-                    \t\tif str_ != "?":
-                    \t\t\tif len(str_) > MAX_LEN:
-                    \t\t\t\tprint(f"Retazec je prilis dlhy (maximalna dlzka je {MAX_LEN}).")
-                    \t\t\t\tcontinue
-                    \t\t\tprint(f"\\nVstupny retazec: {str_}")
-                    \t\t\tprint(f"Dlzka retazca: {len(str_)}")
+                if __name__ == "__main__":
+                \tstr_ = ""
+                \twhile str_ != "?":
+                \t\tprint(f"\\nPre ukončenie programu zadajte symbol \\\"?\\\".")
+                \t\tstr_ = input("Zadajte vstupny retazec: ")
+                \t\tif str_ != "?":
+                \t\t\tif len(str_) > MAX_LEN:
+                \t\t\t\tprint(f"Retazec je prilis dlhy (maximalna dlzka je {MAX_LEN}).")
+                \t\t\t\tcontinue
+                \t\t\tprint(f"\\nVstupny retazec: {str_}")
+                \t\t\tprint(f"Dlzka retazca: {len(str_)}")
 
-                    \t\t\tregex_acceptor = RegexAcceptor()
-                    \t\t\tis_accepted = regex_acceptor.is_accepted(str_)
-                    \t\t\tprint(f"Stav: {'accepted' if is_accepted == regex_acceptor.ACCEPT else 'rejected'}")
-                    """;
+                \t\t\tregex_acceptor = RegexAcceptor()
+                \t\t\tis_accepted = regex_acceptor.is_accepted(str_)
+                \t\t\tprint(f"Stav: {'accepted' if is_accepted == regex_acceptor.ACCEPT else 'rejected'}")
+            """;
     }
 
     private String generateRegexAcceptorFileContent(MinDFAEntity minDFA) {
         final StringBuilder sb = new StringBuilder();
-
         sb.append("class RegexAcceptor:\n");
-
         sb.append("\tACCEPT = 1\n");
         sb.append("\tNON_ACCEPT = -1\n");
         sb.append("\tMAX_LEN = 64\n");
         sb.append("\tUNDEF = -1\n\n");
         sb.append("\tdef __init__(self):\n");
         sb.append("\t\tself.current_state = 0\n\n");
-
         for (int state = 0; state < minDFA.stateCount(); state++) {
-            final String stateName = state == 0 ? "start" : "q" + state;
-            sb.append("\tdef ").append(stateName).append("(self, current_char):\n");
+            sb.append("\tdef ").append(resolveStateName(state)).append("(self, current_char):\n");
             int numOfTransitions = 0;
             for (int transition = 0; transition < minDFA.alphabet().size(); transition++) {
                 Integer nextState = minDFA.transitions()[state][transition];
@@ -81,10 +80,9 @@ public class PythonCodeGenerationAdapter implements PythonCodeGenerationPort {
             }
         }
 
-        int[] acceptedStates = new int[minDFA.acceptStates().size()];
-        int counter = 0;
-        for (int state : minDFA.acceptStates())
-            acceptedStates[counter++] = state;
+        final int[] acceptedStates = minDFA.acceptStates().stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
 
         sb.append("\tdef is_accepted(self, in_str):\n");
         sb.append("\t\tlen_ = len(in_str)\n");

@@ -1,6 +1,5 @@
 package generatorakceptorov.transformation.graph;
 
-import javax.inject.Inject;
 
 import generatorakceptorov.graph.port.outbound.DotGraphTransformationPort;
 import generatorakceptorov.transformation.error.TransformationErrorCode;
@@ -9,6 +8,7 @@ import guru.nidi.graphviz.attribute.Style;
 import guru.nidi.graphviz.engine.*;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.parse.Parser;
+import jakarta.inject.Inject;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;

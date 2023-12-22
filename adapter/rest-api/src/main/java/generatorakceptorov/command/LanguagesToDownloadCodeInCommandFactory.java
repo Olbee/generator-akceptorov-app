@@ -7,7 +7,7 @@ import generatorakceptorov.domain.code.command.LanguagesToDownloadCodeCommand;
 import generatorakceptorov.restapi.dto.automaton.BaseAutomatonDto;
 import generatorakceptorov.restapi.dto.code.GenerateCodesRequest;
 
-public class LanguagesToDownloadCodeCommandFactory {
+public class LanguagesToDownloadCodeInCommandFactory {
 
     private static MinDFAEntity map(BaseAutomatonDto automaton) {
         return ImmutableMinDFAEntity.builder()

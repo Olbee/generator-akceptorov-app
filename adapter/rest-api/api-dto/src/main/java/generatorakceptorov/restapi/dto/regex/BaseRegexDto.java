@@ -13,8 +13,8 @@ import java.util.Map;
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import static org.immutables.value.Value.Style.ValidationMethod.NONE;
 
-@JsonDeserialize(as = ImmutableBaseRegexDto.class)
 @JsonSerialize(as = ImmutableBaseRegexDto.class)
+@JsonDeserialize(as = ImmutableBaseRegexDto.class)
 @Value.Style(stagedBuilder = true, validationMethod = NONE)
 @Value.Immutable
 public interface BaseRegexDto {
@@ -23,7 +23,7 @@ public interface BaseRegexDto {
             description = "rest.api.regex.dto.regex.description",
             requiredMode = REQUIRED,
             example = "0|1")
-    @NotNull
     @NotBlank
+    @NotNull
     String regex();
 }

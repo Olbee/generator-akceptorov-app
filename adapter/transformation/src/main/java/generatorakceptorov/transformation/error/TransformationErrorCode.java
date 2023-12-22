@@ -5,10 +5,10 @@ import generatorakceptorov.command.error.domain.ErrorCodeType;
 
 import static generatorakceptorov.command.error.domain.ErrorCodeType.INTERNAL;
 
-
 public enum TransformationErrorCode implements ErrorCode {
   DOT_TO_PNG_CONVERT_ERROR(
-      INTERNAL, "An unexpected error occurred while attempting to convert the minimal deterministic automatain DOT format to PNG format.Cause exception message: %s");
+      INTERNAL,
+      "An unexpected error occurred while attempting to convert the minimal deterministic automaton from DOT to PNG format. Cause exception message: %s");
 
   private final ErrorCodeType type;
   private final String template;

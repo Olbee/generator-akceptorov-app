@@ -6,9 +6,8 @@ import generatorakceptorov.domain.regex.command.RandomRegexCommand;
 import generatorakceptorov.domain.regex.command.RegexNotationTypeCommand;
 import generatorakceptorov.graph.port.inbound.GenerateGraphsUseCase;
 import generatorakceptorov.command.RegexNotationCommandFactory;
-import generatorakceptorov.command.LanguagesToDownloadCodeCommandFactory;
+import generatorakceptorov.command.LanguagesToDownloadCodeInCommandFactory;
 import generatorakceptorov.domain.code.data.CodeFilesZipData;
-import generatorakceptorov.graph.port.outbound.DFATransitionTableGenerationPort;
 import generatorakceptorov.mapper.AutomatonResponseMapper;
 import generatorakceptorov.mapper.RegexResponseMapper;
 import generatorakceptorov.regex.port.inbound.GenerateRandomRegexUseCase;
@@ -23,15 +22,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.WebApplicationContext;
 
-import static generatorakceptorov.controller.BaseController.BASE_V1_URI;
-import static generatorakceptorov.controller.BaseController.PARAM_REGEX;
 import static org.springframework.http.HttpHeaders.CONTENT_DISPOSITION;
 
 @Tag(name = "Generator controller")
@@ -83,7 +78,7 @@ public class GeneratorController extends BaseController {
     public ResponseEntity<?> generateCodes(@RequestBody GenerateCodesRequest request) {
         final CodeFilesZipData codeFilesZipData =
                 downloadCodeFilesAsZipUseCase.execute(
-                        LanguagesToDownloadCodeCommandFactory.getLanguagesToDownloadCodeCommand(request));
+                        LanguagesToDownloadCodeInCommandFactory.getLanguagesToDownloadCodeCommand(request));
 
         return ResponseEntity.ok()
                 .header(CONTENT_DISPOSITION, "attachment; filename=" + codeFilesZipData.fileName())

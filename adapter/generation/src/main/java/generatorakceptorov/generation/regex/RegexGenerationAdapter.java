@@ -1,7 +1,6 @@
 package generatorakceptorov.generation.regex;
 
 import generatorakceptorov.domain.regex.command.RandomRegexCommand;
-import generatorakceptorov.domain.regex.command.RegexNotationTypeCommand;
 import generatorakceptorov.regex.port.outbound.RegexGenerationPort;
 import org.springframework.stereotype.Component;
 
@@ -17,18 +16,17 @@ import static generatorakceptorov.domain.regex.error.RegexErrorCode.UNEXPECTED_R
 import static java.lang.Character.isLetter;
 import static java.lang.Character.isLetterOrDigit;
 
+//TODO: rework
 @Component
-//TODO: needs to be reworked
 public class RegexGenerationAdapter implements RegexGenerationPort {
 
-    private static final Random random = new Random();
+    private final Random random = new Random();
+    private final Integer OPERANDS_COUNT = 1;
 
-    private static final int OPERANDS_COUNT = 1;
-
-    private static Integer symbolsCount;
-    private static String alphabet, numbers;
-    private static String parentheses, brackets, braces;
-    private static String[] groupingSymbols;
+    private Integer symbolsCount;
+    private String alphabet, numbers;
+    private String parentheses, brackets, braces;
+    private String[] groupingSymbols;
 
     @Override
     public String generate(RandomRegexCommand command) {
@@ -41,7 +39,6 @@ public class RegexGenerationAdapter implements RegexGenerationPort {
 
         String randomRegex = "";
         int randomRegexSymbolsCount = 0;
-
         if (command.notationType() == COMMON) {
             if (!command.regexNumOfSymbols().equals("") || !command.regexSymbolsToUse().equals("")) {
                 while (randomRegexSymbolsCount != (Integer.parseInt(command.regexNumOfSymbols()))) {
@@ -81,7 +78,7 @@ public class RegexGenerationAdapter implements RegexGenerationPort {
         return randomRegex;
     }
 
-    private static void initialize(RandomRegexCommand command) {
+    private void initialize(RandomRegexCommand command) {
         parentheses = LEFT_PARENTHESIS.getValue() + String.valueOf(RIGHT_PARENTHESIS.getValue());
 
         int newMaxOperandsCount = OPERANDS_COUNT * 3;
@@ -133,9 +130,8 @@ public class RegexGenerationAdapter implements RegexGenerationPort {
         }
     }
 
-    public static String generateRandomExpression(int symbolsCount) {
+    public String generateRandomExpression(int symbolsCount) {
         StringBuilder result = new StringBuilder();
-
         int symbolCount = 0;
         for (int i = 0; i < symbolsCount; i++) {
             int randomCaseChoice = random.nextInt(3);
@@ -145,7 +141,6 @@ public class RegexGenerationAdapter implements RegexGenerationPort {
                         !numbers.equals("")
                                 ? numbers.charAt(random.nextInt(numbers.length()))
                                 : alphabet.charAt(random.nextInt(alphabet.length())));
-
                 case 1 -> result.insert(
                         random.nextInt(result.length() + 1),
                         !alphabet.equals("")
@@ -183,7 +178,7 @@ public class RegexGenerationAdapter implements RegexGenerationPort {
         return result.toString();
     }
 
-    private static StringBuilder ensureNonEmptyGroupingSymbols(StringBuilder sb, String symbol) {
+    private StringBuilder ensureNonEmptyGroupingSymbols(StringBuilder sb, String symbol) {
         int openingIndex = sb.indexOf(symbol);
         while (openingIndex >= 0) {
             int closingIndex = sb.indexOf(String.valueOf(symbol.charAt(1)), openingIndex + 1);
@@ -200,7 +195,7 @@ public class RegexGenerationAdapter implements RegexGenerationPort {
         return sb;
     }
 
-    private static boolean isGroupingSymbol(char symbol) {
+    private boolean isGroupingSymbol(char symbol) {
         for (String groupingSymbol : groupingSymbols)
             if (groupingSymbol.contains(String.valueOf(symbol)))
                 return true;
@@ -208,7 +203,7 @@ public class RegexGenerationAdapter implements RegexGenerationPort {
         return false;
     }
 
-    private static String addAlternations(String regex) {
+    private String addAlternations(String regex) {
         final StringBuilder result = new StringBuilder(regex);
         for (int i = 0; i < result.length() - 1; i++) {
             if (isLetterOrDigit(result.charAt(i)) && isLetterOrDigit(result.charAt(i + 1))) {
@@ -222,7 +217,7 @@ public class RegexGenerationAdapter implements RegexGenerationPort {
         return result.toString();
     }
 
-    private static String addQuantifiers(String regex) {
+    private String addQuantifiers(String regex) {
         final StringBuilder result = new StringBuilder();
         for (int i = 0; i < regex.length(); i++) {
             result.append(regex.charAt(i));

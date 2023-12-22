@@ -11,6 +11,7 @@ buildscript {
         springDocVersion = '2.1.0'
         swaggerVersion = '2.2.7'
         immutablesVersion = '2.9.3'
+        jakartaInjectVersion = '2.0.1'
         jupiterVersion = '5.8.2'
         automatonVersion = '1.12-1'
         graphvizVersion = '0.14.2'
@@ -26,7 +27,6 @@ group 'generatorakceptorov'
 version '1.0-SNAPSHOT'
 
 subprojects {
-
     apply plugin: 'java-library'
     apply plugin: 'idea'
     apply plugin: 'io.spring.dependency-management'
@@ -40,17 +40,15 @@ subprojects {
         maven { url 'https://packages.confluent.io/maven/' }
     }
 
-    configurations {
-        javaAgentDownload
-    }
-
     dependencies {
         implementation platform(SpringBootPlugin.BOM_COORDINATES)
+
         api("dk.brics:automaton:$automatonVersion")
-        api('javax.inject:javax.inject:1')
         api("guru.nidi:graphviz-java:$graphvizVersion")
         api("org.springframework:spring-context")
+
         annotationProcessor("org.immutables:value:$immutablesVersion")
+
         compileOnly("org.immutables:value-annotations:$immutablesVersion")
     }
 
@@ -61,5 +59,9 @@ subprojects {
     clean {
         delete "out"
     }
-}
 
+    test {
+        useJUnitPlatform()
+        jvmArgs = ["--add-opens=java.base/java.util.concurrent=ALL-UNNAMED", "--add-opens=java.base/java.time=ALL-UNNAMED"]
+    }
+}

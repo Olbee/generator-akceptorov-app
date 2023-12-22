@@ -97,6 +97,7 @@ public class StringTransformationAdapter extends AbstractTransformationAdapter i
                 default -> result.append(currentChar);
             }
         }
+
         return result.toString();
     }
 
@@ -120,6 +121,7 @@ public class StringTransformationAdapter extends AbstractTransformationAdapter i
                 }
             }
         }
+
         while (!stack.isEmpty())
             sb.append(stack.pop());
 
@@ -127,7 +129,7 @@ public class StringTransformationAdapter extends AbstractTransformationAdapter i
     }
 
     public boolean commonRegexIsCorrect(String regex) {
-        Map<Character, Integer> operatorsDepth = new HashMap<>(
+        final Map<Character, Integer> operatorsDepth = new HashMap<>(
                 Map.of(
                         LEFT_PARENTHESIS, 0,
                         CONCATENATION, 0,

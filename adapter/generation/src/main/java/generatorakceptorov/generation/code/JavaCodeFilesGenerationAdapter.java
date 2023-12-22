@@ -6,37 +6,35 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
+//TODO: rework
 @Component
-public class JavaCodeGenerationAdapter implements JavaCodeGenerationPort {
+public class JavaCodeFilesGenerationAdapter extends AbstractCodeFilesGenerationAdapter implements JavaCodeGenerationPort {
 
-    private static final String PACKAGE = "akceptor";
-    public static final String MAIN_JAVA_FILE = "JavaCodeFiles/src/main/java/" + PACKAGE + "/Main.java";
-    public static final String REGEX_ACCEPTOR_JAVA_FILE = "JavaCodeFiles/src/main/java/" + PACKAGE + "/RegexAcceptor.java";
+    public static final String FOLDER_NAME = "JavaCodeFiles/";
+    public static final String PACKAGE_NAME = FOLDER_NAME + "src/main/java/akceptor/";
+
+    public static final String MAIN_FILE_NAME = PACKAGE_NAME + "Main.java";
+    public static final String REGEX_ACCEPTOR_FILE_NAME = PACKAGE_NAME + "RegexAcceptor.java";
 
     @Override
     public HashMap<String, String> generateFromMinDFA(MinDFAEntity minDFA) {
-        HashMap<String, String> generatedFiles = new HashMap<>();
-        generatedFiles.put(MAIN_JAVA_FILE, generateMainFileContent());
-        generatedFiles.put(REGEX_ACCEPTOR_JAVA_FILE, generateRegexAcceptorFileContent(minDFA));
+        final HashMap<String, String> generatedFiles = new HashMap<>();
+        generatedFiles.put(MAIN_FILE_NAME, generateMainFileContent());
+        generatedFiles.put(REGEX_ACCEPTOR_FILE_NAME, generateRegexAcceptorFileContent(minDFA));
 
         return generatedFiles;
     }
 
     private String generateMainFileContent() {
         final StringBuilder sb = new StringBuilder();
-
-        generateCurrentPackage(sb);
-
+        resolveCurrentPackage(sb);
         sb.append("import java.util.Scanner;\n\n");
-        sb.append("import static ").append(PACKAGE).append(".RegexAcceptor.ACCEPT;\n");
-        sb.append("import static ").append(PACKAGE).append(".RegexAcceptor.MAX_LEN;\n\n");
-
+        sb.append("import static ").append(PACKAGE_NAME).append(".RegexAcceptor.ACCEPT;\n");
+        sb.append("import static ").append(PACKAGE_NAME).append(".RegexAcceptor.MAX_LEN;\n\n");
         sb.append("public class Main {\n");
         sb.append("\tpublic static void main(String[] args) {\n\n");
-
         sb.append("\t\tSystem.out.print(\"\\n\");\n");
         sb.append("\t\tScanner scanner = new Scanner(System.in);\n");
-
         sb.append("\t\tString str = \"\";\n");
         sb.append("\t\twhile (!str.equals(\"?\")) {\n");
         sb.append("\t\t\tSystem.out.print(\"\\nPre ukončenie programu zadajte symbol \\\"?\\\".\");\n");
@@ -47,7 +45,6 @@ public class JavaCodeGenerationAdapter implements JavaCodeGenerationPort {
         sb.append("\t\t\t\t\tSystem.out.println(\"Retazec je prilis dlhy (maximalna dlzka je 64).\");\n");
         sb.append("\t\t\t\t\tcontinue;\n");
         sb.append("\t\t\t\t}\n");
-
         sb.append("\t\t\t\tSystem.out.printf(\"\\nVstupny retazec: %s\\n\", str);\n");
         sb.append("\t\t\t\tSystem.out.printf(\"Dlzka retazca: %d\", str.length());\n\n");
         sb.append("\t\t\t\tRegexAcceptor regexAcceptor = new RegexAcceptor();\n");
@@ -62,19 +59,15 @@ public class JavaCodeGenerationAdapter implements JavaCodeGenerationPort {
 
     private String generateRegexAcceptorFileContent(MinDFAEntity minDFA) {
         final StringBuilder sb = new StringBuilder();
-
-        generateCurrentPackage(sb);
+        resolveCurrentPackage(sb);
         sb.append("public class RegexAcceptor {\n\n");
-
         sb.append("\tpublic static final int ACCEPT = 1;\n");
         sb.append("\tpublic static final int NON_ACCEPT = -1;\n");
         sb.append("\tpublic static final int MAX_LEN = 64;\n");
         sb.append("\tpublic static final int UNDEF = -1;\n\n");
         sb.append("\tprivate int currentState = 0;\n\n");
-
         for (int state = 0; state < minDFA.stateCount(); state++) {
-            final String stateName = state == 0 ? "start" : "q" + state;
-            sb.append("\tprivate void ").append(stateName).append("(char currentChar) {\n");
+            sb.append("\tprivate void ").append(resolveStateName(state)).append("(char currentChar) {\n");
             int numOfTransitions = 0;
             for (int transition = 0; transition < minDFA.alphabet().size(); transition++) {
                 Integer nextState = minDFA.transitions()[state][transition];
@@ -89,20 +82,17 @@ public class JavaCodeGenerationAdapter implements JavaCodeGenerationPort {
             }
             if (numOfTransitions == 0) {
                 sb.append("\t\tcurrentState = UNDEF;\n");
-                sb.append("\t}\n\n");
-
             } else {
                 sb.append("\t\telse {\n");
                 sb.append("\t\t\tcurrentState = UNDEF;\n");
                 sb.append("\t\t}\n");
-                sb.append("\t}\n\n");
             }
+            sb.append("\t}\n\n");
         }
 
-        int[] acceptedStates = new int[minDFA.acceptStates().size()];
-        int counter = 0;
-        for (int state : minDFA.acceptStates())
-            acceptedStates[counter++] = state;
+        final int[] acceptedStates = minDFA.acceptStates().stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
 
         sb.append("\tpublic int isAccepted(String inStr) {\n");
         sb.append("\t\tint len = inStr.length();\n");
@@ -139,7 +129,7 @@ public class JavaCodeGenerationAdapter implements JavaCodeGenerationPort {
         return sb.toString();
     }
 
-    private void generateCurrentPackage(StringBuilder sb) {
-        sb.append("package ").append(PACKAGE).append(";\n\n");
+    private void resolveCurrentPackage(StringBuilder sb) {
+        sb.append("package ").append(PACKAGE_NAME).append(";\n\n");
     }
 }

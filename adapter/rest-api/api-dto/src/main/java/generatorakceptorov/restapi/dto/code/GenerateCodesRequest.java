@@ -13,8 +13,8 @@ import java.util.List;
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import static org.immutables.value.Value.Style.ValidationMethod.NONE;
 
-@JsonDeserialize(as = ImmutableGenerateCodesRequest.class)
 @JsonSerialize(as = ImmutableGenerateCodesRequest.class)
+@JsonDeserialize(as = ImmutableGenerateCodesRequest.class)
 @Value.Style(stagedBuilder = true, validationMethod = NONE)
 @Value.Immutable
 public interface GenerateCodesRequest {

@@ -6,17 +6,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+//TODO: rework
 @Component
-public class DFADotGraphGenerationAdapter
-        extends AbstractDotGraphGenerationAdapter
-        implements DFADotGraphGenerationPort {
+public class DFADotGraphGenerationAdapter extends AbstractDotGraphGenerationAdapter implements DFADotGraphGenerationPort {
 
     @Override
     public String generateFromMinDFA(MinDFAEntity entity) {
         final StringBuilder sb = new StringBuilder();
         sb.append("digraph transition_graph {\n");
         sb.append("    rankdir=LR;\n");
-
         for (int i = 0; i < entity.transitions().length; i++) {
             String shape =
                 entity.acceptStates().contains(i)

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.TreeSet;
 
+//TODO: rework
 @Component
 public class NFATransformationAdapter extends AbstractTransformationAdapter implements NFATransformationPort {
 
@@ -67,6 +68,7 @@ public class NFATransformationAdapter extends AbstractTransformationAdapter impl
                 }
             }
         }
+
         return reachableStates;
     }
 

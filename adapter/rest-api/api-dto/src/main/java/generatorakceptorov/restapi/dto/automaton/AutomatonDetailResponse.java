@@ -3,14 +3,15 @@ package generatorakceptorov.restapi.dto.automaton;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.immutables.value.Value;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import static org.immutables.value.Value.Style.ValidationMethod.NONE;
 
-@JsonDeserialize(as = ImmutableAutomatonDetailResponse.class)
 @JsonSerialize(as = ImmutableAutomatonDetailResponse.class)
+@JsonDeserialize(as = ImmutableAutomatonDetailResponse.class)
 @Value.Style(stagedBuilder = true, validationMethod = NONE)
 @Value.Immutable
 public interface AutomatonDetailResponse extends BaseAutomatonDto {
@@ -30,9 +31,10 @@ public interface AutomatonDetailResponse extends BaseAutomatonDto {
     byte[] dfaPNGGraph();
 
     @Schema(
-            description = "rest.api.automaton.dto.transitionTable.description", //TODO documentation
+            description = "rest.api.automaton.dto.transitionTable.description", //TODO: add description to messages.properties
             requiredMode = REQUIRED,
             format = "string")
+    @NotBlank
     @NotNull
     String transitionTable();
 }

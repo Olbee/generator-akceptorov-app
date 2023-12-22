@@ -10,8 +10,8 @@ import org.immutables.value.Value;
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import static org.immutables.value.Value.Style.ValidationMethod.NONE;
 
-@JsonDeserialize(as = ImmutableRegexNotationTypeRequest.class)
 @JsonSerialize(as = ImmutableRegexNotationTypeRequest.class)
+@JsonDeserialize(as = ImmutableRegexNotationTypeRequest.class)
 @Value.Style(stagedBuilder = true, validationMethod = NONE)
 @Value.Immutable
 public interface RegexNotationTypeRequest {

@@ -9,7 +9,8 @@ import static generatorakceptorov.command.error.domain.ErrorCodeType.INTERNAL;
 public enum CodeErrorCode implements ErrorCode {
 
     CODE_FILES_TO_ZIP_GENERATE_ERROR(
-            INTERNAL, "An unexpected error occurred while attempting to generate ZIP of code files. Cause exception message: %s");
+            INTERNAL,
+            "An unexpected error occurred while attempting to generate ZIP of code files. Cause exception message: %s");
 
     private final ErrorCodeType type;
     private final String template;

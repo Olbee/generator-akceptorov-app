@@ -12,8 +12,8 @@ import java.util.TreeSet;
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import static org.immutables.value.Value.Style.ValidationMethod.NONE;
 
-@JsonDeserialize(as = ImmutableBaseAutomatonDto.class)
 @JsonSerialize(as = ImmutableBaseAutomatonDto.class)
+@JsonDeserialize(as = ImmutableBaseAutomatonDto.class)
 @Value.Style(stagedBuilder = true, validationMethod = NONE)
 @Value.Immutable
 public interface BaseAutomatonDto {

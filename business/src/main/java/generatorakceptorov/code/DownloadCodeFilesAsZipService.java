@@ -1,4 +1,4 @@
-package generatorakceptorov.code.service;
+package generatorakceptorov.code;
 
 import generatorakceptorov.code.port.inbound.DownloadCodeFilesAsZipUseCase;
 import generatorakceptorov.code.port.outbound.CodeGenerationPort;
@@ -33,18 +33,19 @@ public class DownloadCodeFilesAsZipService implements DownloadCodeFilesAsZipUseC
             JavaCodeGenerationPort javaCodeGenerationPort,
             PythonCodeGenerationPort pythonCodeGenerationPort) {
         this.codeGenerationPorts =
-                Map.of(C, CCodeGenerationPort,
-                        JAVA, javaCodeGenerationPort,
-                        PYTHON, pythonCodeGenerationPort);
+                Map.of(
+                    C, CCodeGenerationPort,
+                    JAVA, javaCodeGenerationPort,
+                    PYTHON, pythonCodeGenerationPort);
     }
 
     @Override
     public CodeFilesZipData execute(LanguagesToDownloadCodeCommand command) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try (ZipOutputStream zos = new ZipOutputStream(baos)) {
-            command.languagesToDownloadCode().forEach(lang -> {
+            command.languagesToDownloadCode().forEach(language -> {
                 try {
-                    addFilesToZip(zos, codeGenerationPorts.get(lang).generateFromMinDFA(command.minDFA()));
+                    addFilesToZip(zos, codeGenerationPorts.get(language).generateFromMinDFA(command.minDFA()));
                 } catch (IOException error) {
                     throwCodeFilesToZipGenerateErrorError(error.getMessage());
                 }

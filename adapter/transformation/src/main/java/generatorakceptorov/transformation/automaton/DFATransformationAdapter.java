@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.TreeSet;
 
+//TODO: rework
 @Component
 public class DFATransformationAdapter extends AbstractTransformationAdapter implements DFATransformationPort {
 

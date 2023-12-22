@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+//TODO: rework
 @Component
 public class RegexTransformationAdapter extends AbstractTransformationAdapter implements RegexTransformationPort {
 

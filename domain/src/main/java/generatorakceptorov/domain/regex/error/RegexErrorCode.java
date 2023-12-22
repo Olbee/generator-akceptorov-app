@@ -8,13 +8,14 @@ import static generatorakceptorov.command.error.domain.ErrorCodeType.UNPROCESSAB
 public enum RegexErrorCode implements ErrorCode {
     INVALID_REGEX_SYNTAX_ERROR(
             UNPROCESSABLE_ENTITY,
-            "Provided regex: '%s' is invalid." +
-                    " Please ensure the correct usage of parentheses, operators, syntax and valid semantic meaning."),
+            "Provided regex: '%s' is invalid. Please ensure the correct usage of parentheses, operators, syntax and valid semantic meaning."),
     UNEXPECTED_REGEX_NOTATION_TYPE_ERROR(
-            UNPROCESSABLE_ENTITY, "An unexpected error occurred while attempting to parse regex notation type: %s."),
+            UNPROCESSABLE_ENTITY,
+            "An unexpected error occurred while attempting to parse regex notation type: %s."),
 
     INVALID_RANDOM_REGEX_SIZE_ERROR(
-            UNPROCESSABLE_ENTITY, "The regex notation provided exceeds the maximum allowed size of 100, but actual is: %s.");
+            UNPROCESSABLE_ENTITY,
+            "The regex notation provided exceeds the maximum allowed size of 100, but actual is: %s.");
 
     private final ErrorCodeType type;
     private final String template;

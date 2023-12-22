@@ -1,4 +1,4 @@
-package generatorakceptorov.generation.graph;
+package generatorakceptorov.generation.table;
 
 import generatorakceptorov.domain.automaton.entity.MinDFAEntity;
 import generatorakceptorov.graph.port.outbound.DFATransitionTableGenerationPort;
@@ -6,15 +6,16 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+//TODO: rework
 @Component
 public class DFATransitionTableGenerationAdapter implements DFATransitionTableGenerationPort {
 
     @Override
     public String generateFromMinDFA(MinDFAEntity entity) {
         StringBuilder sb = new StringBuilder();
-
         sb.append("<table>");
         sb.append("<th>state</th>");
+
         for (char currentChar : entity.alphabet())
             sb.append("<th>").append(currentChar).append("</th>");
 
