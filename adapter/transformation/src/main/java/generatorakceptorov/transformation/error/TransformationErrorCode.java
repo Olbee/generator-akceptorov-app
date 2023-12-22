@@ -1,9 +1,9 @@
 package generatorakceptorov.transformation.error;
 
+import static generatorakceptorov.command.error.domain.ErrorCodeType.INTERNAL;
+
 import generatorakceptorov.command.error.domain.ErrorCode;
 import generatorakceptorov.command.error.domain.ErrorCodeType;
-
-import static generatorakceptorov.command.error.domain.ErrorCodeType.INTERNAL;
 
 public enum TransformationErrorCode implements ErrorCode {
   DOT_TO_PNG_CONVERT_ERROR(

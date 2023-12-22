@@ -1,8 +1,7 @@
 package generatorakceptorov.domain.regex;
 
 public enum ProgrammingLanguage {
-
-    C,
-    JAVA,
-    PYTHON
+  C,
+  JAVA,
+  PYTHON
 }

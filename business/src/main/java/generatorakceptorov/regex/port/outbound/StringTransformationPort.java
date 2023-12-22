@@ -5,5 +5,5 @@ import generatorakceptorov.domain.regex.entity.RegexEntity;
 
 public interface StringTransformationPort {
 
-    RegexEntity transformToRegex(String regex, NotationType notationType);
+  RegexEntity transformToRegex(String regex, NotationType notationType);
 }

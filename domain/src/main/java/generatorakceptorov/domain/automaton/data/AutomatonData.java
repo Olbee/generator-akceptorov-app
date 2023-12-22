@@ -6,11 +6,11 @@ import org.immutables.value.Value;
 @Value.Immutable
 public interface AutomatonData {
 
-    MinDFAEntity minDfa();
+  MinDFAEntity minDfa();
 
-    byte[] transitionPNGGraph();
+  byte[] transitionPNGGraph();
 
-    byte[] dfaPNGGraph();
+  byte[] dfaPNGGraph();
 
-    String transitionTable();
+  String transitionTable();
 }

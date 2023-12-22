@@ -7,9 +7,11 @@ buildscript {
     }
 
     ext {
-        springBootVersion = '3.0.5'
+        springBootVersion = '3.1.0'
         springDocVersion = '2.1.0'
         swaggerVersion = '2.2.7'
+        spotlessVersion = '6.22.0'
+        googleFormatVersion = '1.19.1'
         immutablesVersion = '2.9.3'
         jakartaInjectVersion = '2.0.1'
         jupiterVersion = '5.8.2'
@@ -20,6 +22,7 @@ buildscript {
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+        classpath("com.diffplug.spotless:spotless-plugin-gradle:$spotlessVersion")
     }
 }
 
@@ -30,6 +33,7 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'idea'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'com.diffplug.spotless'
 
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -60,8 +64,15 @@ subprojects {
         delete "out"
     }
 
-    test {
-        useJUnitPlatform()
-        jvmArgs = ["--add-opens=java.base/java.util.concurrent=ALL-UNNAMED", "--add-opens=java.base/java.time=ALL-UNNAMED"]
+    spotless {
+        java {
+            googleJavaFormat(googleFormatVersion)
+            removeUnusedImports()
+            trimTrailingWhitespace()
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        dependsOn 'spotlessApply'
     }
 }

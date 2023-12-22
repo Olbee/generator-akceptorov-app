@@ -4,5 +4,5 @@ import generatorakceptorov.domain.regex.command.RandomRegexCommand;
 
 public interface RegexGenerationPort {
 
-    String generate(RandomRegexCommand command);
+  String generate(RandomRegexCommand command);
 }

@@ -5,9 +5,9 @@ import org.immutables.value.Value;
 @Value.Immutable
 public interface RandomRegexCommand extends RegexNotationTypeCommand {
 
-    @Value.Parameter
-    String regexNumOfSymbols();
+  @Value.Parameter
+  String regexNumOfSymbols();
 
-    @Value.Parameter
-    String regexSymbolsToUse();
+  @Value.Parameter
+  String regexSymbolsToUse();
 }

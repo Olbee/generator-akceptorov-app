@@ -6,7 +6,8 @@ import generatorakceptorov.restapi.dto.notation.RegexNotationTypeRequest;
 
 public class RegexNotationCommandFactory {
 
-    public static RegexNotationTypeCommand getRegexNotationTypeCommand(RegexNotationTypeRequest request) {
-        return ImmutableRegexNotationTypeCommand.of(request.notationType());
-    }
+  public static RegexNotationTypeCommand getRegexNotationTypeCommand(
+      RegexNotationTypeRequest request) {
+    return ImmutableRegexNotationTypeCommand.of(request.notationType());
+  }
 }

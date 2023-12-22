@@ -2,11 +2,11 @@ package generatorakceptorov.command.error.domain;
 
 public interface ErrorCode {
 
-    String template();
+  String template();
 
-    ErrorCodeType type();
+  ErrorCodeType type();
 
-    default Error createError(String... params) {
-        return Error.of(this, params);
-    }
+  default Error createError(String... params) {
+    return Error.of(this, params);
+  }
 }

@@ -1,17 +1,16 @@
 package generatorakceptorov.restapi.dto.code;
 
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
+import static org.immutables.value.Value.Style.ValidationMethod.NONE;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import generatorakceptorov.domain.regex.ProgrammingLanguage;
 import generatorakceptorov.restapi.dto.automaton.BaseAutomatonDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
-import org.immutables.value.Value;
-
 import java.util.List;
-
-import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
-import static org.immutables.value.Value.Style.ValidationMethod.NONE;
+import org.immutables.value.Value;
 
 @JsonSerialize(as = ImmutableGenerateCodesRequest.class)
 @JsonDeserialize(as = ImmutableGenerateCodesRequest.class)
@@ -19,11 +18,11 @@ import static org.immutables.value.Value.Style.ValidationMethod.NONE;
 @Value.Immutable
 public interface GenerateCodesRequest {
 
-    @Schema(
-            description = "rest.api.code.dto.automaton.description",
-            requiredMode = REQUIRED,
-            example =
-                    """
+  @Schema(
+      description = "rest.api.code.dto.automaton.description",
+      requiredMode = REQUIRED,
+      example =
+          """
                     {
                         "alphabet": ["a", "b", "c"],
                         "stateCount": 4,
@@ -38,20 +37,20 @@ public interface GenerateCodesRequest {
                         ]
                     }
                     """)
-    @NotNull
-    BaseAutomatonDto automaton();
+  @NotNull
+  BaseAutomatonDto automaton();
 
-    @Schema(
-            description = "rest.api.code.dto.languagesToDownloadCode.description",
-            requiredMode = REQUIRED,
-            example =
-                """
+  @Schema(
+      description = "rest.api.code.dto.languagesToDownloadCode.description",
+      requiredMode = REQUIRED,
+      example =
+          """
                 {
                     "C": true,
                     "Java": false,
                     "Python": true
                 }
                 """)
-    @NotNull
-    List<ProgrammingLanguage> languagesToDownloadCode();
+  @NotNull
+  List<ProgrammingLanguage> languagesToDownloadCode();
 }

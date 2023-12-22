@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanConfiguration {
 
-    @Bean
-    public Parser graphvizParser() {
-        return new Parser();
-    }
+  @Bean
+  public Parser graphvizParser() {
+    return new Parser();
+  }
 }

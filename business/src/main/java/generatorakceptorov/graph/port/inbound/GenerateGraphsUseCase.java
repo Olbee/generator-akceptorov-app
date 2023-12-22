@@ -5,5 +5,5 @@ import generatorakceptorov.domain.regex.command.RegexNotationTypeCommand;
 
 public interface GenerateGraphsUseCase {
 
-    AutomatonData execute(String regex, RegexNotationTypeCommand command);
+  AutomatonData execute(String regex, RegexNotationTypeCommand command);
 }

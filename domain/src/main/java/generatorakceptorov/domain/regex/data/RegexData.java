@@ -5,6 +5,6 @@ import org.immutables.value.Value;
 @Value.Immutable
 public interface RegexData {
 
-    @Value.Parameter
-    String regex();
+  @Value.Parameter
+  String regex();
 }

@@ -11,15 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class GenerateRandomRegexService implements GenerateRandomRegexUseCase {
 
-    private final RegexGenerationPort regexGenerationPort;
+  private final RegexGenerationPort regexGenerationPort;
 
-    @Autowired
-    public GenerateRandomRegexService(RegexGenerationPort regexGenerationPort) {
-        this.regexGenerationPort = regexGenerationPort;
-    }
+  @Autowired
+  public GenerateRandomRegexService(RegexGenerationPort regexGenerationPort) {
+    this.regexGenerationPort = regexGenerationPort;
+  }
 
-    @Override
-    public RegexData execute(RandomRegexCommand command) {
-        return ImmutableRegexData.of(regexGenerationPort.generate(command));
-    }
+  @Override
+  public RegexData execute(RandomRegexCommand command) {
+    return ImmutableRegexData.of(regexGenerationPort.generate(command));
+  }
 }

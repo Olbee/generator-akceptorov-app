@@ -6,6 +6,6 @@ import org.immutables.value.Value;
 @Value.Immutable
 public interface RegexNotationTypeCommand {
 
-    @Value.Parameter
-    NotationType notationType();
+  @Value.Parameter
+  NotationType notationType();
 }

@@ -9,21 +9,22 @@ import generatorakceptorov.restapi.dto.code.GenerateCodesRequest;
 
 public class LanguagesToDownloadCodeInCommandFactory {
 
-    private static MinDFAEntity map(BaseAutomatonDto automaton) {
-        return ImmutableMinDFAEntity.builder()
-                .acceptStates(automaton.acceptStates())
-                .transitions(automaton.transitions())
-                .alphabet(automaton.alphabet())
-                .stateCount(automaton.stateCount())
-                .startState(automaton.startState())
-                .dfaToMinDfaStateTransitions(automaton.dfaToMinDfaStateTransitions())
-                .build();
-    }
+  private static MinDFAEntity map(BaseAutomatonDto automaton) {
+    return ImmutableMinDFAEntity.builder()
+        .acceptStates(automaton.acceptStates())
+        .transitions(automaton.transitions())
+        .alphabet(automaton.alphabet())
+        .stateCount(automaton.stateCount())
+        .startState(automaton.startState())
+        .dfaToMinDfaStateTransitions(automaton.dfaToMinDfaStateTransitions())
+        .build();
+  }
 
-    public static LanguagesToDownloadCodeCommand getLanguagesToDownloadCodeCommand(GenerateCodesRequest request) {
-            return ImmutableLanguagesToDownloadCodeCommand.builder()
-                .minDFA(map(request.automaton()))
-                .languagesToDownloadCode(request.languagesToDownloadCode())
-                .build();
-    }
+  public static LanguagesToDownloadCodeCommand getLanguagesToDownloadCodeCommand(
+      GenerateCodesRequest request) {
+    return ImmutableLanguagesToDownloadCodeCommand.builder()
+        .minDFA(map(request.automaton()))
+        .languagesToDownloadCode(request.languagesToDownloadCode())
+        .build();
+  }
 }

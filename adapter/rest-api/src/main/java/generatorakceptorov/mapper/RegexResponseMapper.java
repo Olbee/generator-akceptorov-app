@@ -6,9 +6,7 @@ import generatorakceptorov.restapi.dto.regex.ImmutableBaseRegexDto;
 
 public final class RegexResponseMapper {
 
-    public static BaseRegexDto map(RegexData data) {
-        return ImmutableBaseRegexDto.builder()
-                .regex(data.regex())
-                .build();
-    }
+  public static BaseRegexDto map(RegexData data) {
+    return ImmutableBaseRegexDto.builder().regex(data.regex()).build();
+  }
 }

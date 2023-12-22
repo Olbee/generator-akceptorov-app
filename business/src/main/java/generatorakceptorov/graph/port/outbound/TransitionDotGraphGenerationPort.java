@@ -4,5 +4,5 @@ import generatorakceptorov.domain.automaton.entity.DFAEntity;
 
 public interface TransitionDotGraphGenerationPort {
 
-    String generateFromDFA(DFAEntity DFA);
+  String generateFromDFA(DFAEntity DFA);
 }

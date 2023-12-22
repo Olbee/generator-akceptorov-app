@@ -5,5 +5,5 @@ import generatorakceptorov.domain.code.data.CodeFilesZipData;
 
 public interface DownloadCodeFilesAsZipUseCase {
 
-    CodeFilesZipData execute(LanguagesToDownloadCodeCommand command);
+  CodeFilesZipData execute(LanguagesToDownloadCodeCommand command);
 }

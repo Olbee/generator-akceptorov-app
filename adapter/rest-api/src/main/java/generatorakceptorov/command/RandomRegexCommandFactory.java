@@ -6,11 +6,11 @@ import generatorakceptorov.restapi.dto.regex.GenerateRandomRegexRequest;
 
 public class RandomRegexCommandFactory {
 
-    public static RandomRegexCommand getRandomRegexCommand(GenerateRandomRegexRequest request) {
-        return ImmutableRandomRegexCommand.builder()
-                .notationType(request.notationType())
-                .regexNumOfSymbols(request.numberOfSymbols())
-                .regexSymbolsToUse(request.symbolsToUse())
-                .build();
-    }
+  public static RandomRegexCommand getRandomRegexCommand(GenerateRandomRegexRequest request) {
+    return ImmutableRandomRegexCommand.builder()
+        .notationType(request.notationType())
+        .regexNumOfSymbols(request.numberOfSymbols())
+        .regexSymbolsToUse(request.symbolsToUse())
+        .build();
+  }
 }

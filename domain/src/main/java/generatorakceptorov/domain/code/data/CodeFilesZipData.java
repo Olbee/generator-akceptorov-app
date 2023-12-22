@@ -5,7 +5,7 @@ import org.immutables.value.Value;
 @Value.Immutable
 public interface CodeFilesZipData {
 
-    String fileName();
+  String fileName();
 
-    byte[] fileContent();
+  byte[] fileContent();
 }

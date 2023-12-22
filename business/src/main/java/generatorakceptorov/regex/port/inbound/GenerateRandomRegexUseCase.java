@@ -5,5 +5,5 @@ import generatorakceptorov.domain.regex.data.RegexData;
 
 public interface GenerateRandomRegexUseCase {
 
-    RegexData execute(RandomRegexCommand command);
+  RegexData execute(RandomRegexCommand command);
 }

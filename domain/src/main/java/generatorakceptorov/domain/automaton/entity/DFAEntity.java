@@ -1,12 +1,11 @@
 package generatorakceptorov.domain.automaton.entity;
 
-import org.immutables.value.Value;
-
 import java.util.ArrayList;
 import java.util.TreeSet;
+import org.immutables.value.Value;
 
 @Value.Immutable
 public interface DFAEntity extends AutomatonEntity {
 
-    ArrayList<TreeSet<Integer>> nfaToDfaStateTransitions();
+  ArrayList<TreeSet<Integer>> nfaToDfaStateTransitions();
 }

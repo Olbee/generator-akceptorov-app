@@ -2,7 +2,6 @@ package generatorakceptorov.domain.regex;
 
 // TODO: rework
 public enum RegexOperator {
-
   LEFT_PARENTHESIS('('),
   RIGHT_PARENTHESIS(')'),
   LEFT_BRACKET('['),

@@ -6,10 +6,9 @@ import org.immutables.value.Value;
 @Value.Immutable
 public interface RegexEntity {
 
-    @Value.Parameter
-    String regex();
+  @Value.Parameter
+  String regex();
 
-    @Value.Parameter
-    NotationType notationType();
+  @Value.Parameter
+  NotationType notationType();
 }
-

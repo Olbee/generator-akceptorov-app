@@ -5,13 +5,13 @@ import java.util.TreeSet;
 
 public interface AutomatonEntity {
 
-    ArrayList<Character> alphabet();
+  ArrayList<Character> alphabet();
 
-    Integer stateCount();
+  Integer stateCount();
 
-    Integer startState();
+  Integer startState();
 
-    TreeSet<Integer> acceptStates();
+  TreeSet<Integer> acceptStates();
 
-    Integer[][] transitions();
+  Integer[][] transitions();
 }
